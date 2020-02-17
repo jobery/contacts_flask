@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+{% block title %}Inicio{% endblock %}
+{% block body %}
+    {% with mensajes = get_flashed_messages() %}
+        {% if mensajes %}
+            {% for mensaje in mensajes %}
+                <div class="notification is-success">
+                    <button class="delete"></button>
+                    {{ mensaje }}
+                </div>         
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="/add_contact" method="POST">
+        <div class="field">
+            <label for="Fullname" class="label">FullName</label>
+            <div class="control">                
+                <input type="text" class="input" name = "fullname" placeholder="fullname">
+            </div>
+        </div>
+        <div class="field">
+            <label for="phone" class="label">Phone</label>
+            <div class="control">                
+                <input type="text" class="input" name = "phone" placeholder="phone">
+            </div>     
+        </div>
+        <div class="field">
+            <label for="Email" class="label">Email</label>
+            <div class="control">                
+                <input type="email" class="input" name = "email" placeholder="email">
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <button type="submit" class="button is-primary">Guardar</button>
+            </div>  
+        </div>        
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>FullName</td>
+                <td>Phone</td>
+                <td>Email</td>
+                <td>Operaciones</td>
+            </tr>
+        </thead>
+        <tbody>            
+            {% for contac in contacts %}
+                <tr>
+                    <td>{{ contac.id }}</td>
+                    <td>{{ contac.fullname }}</td>
+                    <td>{{ contac.phone }}</td>
+                    <td>{{ contac.email }}</td>
+                    <td>
+                        <div class="buttons">
+                            <button class="button is-warning"><a href="/edit/{{ contac.id }}">Editar</a></button>
+                            <button class="button is-danger"><a href="/delete/{{ contac.id }}">Eliminar</a></button>
+                        </div>                      
+                    </td>
+                </tr>
+            {% endfor %}            
+        </tbody>
+    </table>
+{% endblock %}

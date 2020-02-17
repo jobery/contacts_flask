@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% block title %}Editar Contacto{% endblock %}
+{% block body %}
+    {% with mensajes = get_flashed_messages() %}
+    {% if mensajes %}
+        {% for mensaje in mensajes %}
+            <div class="notification is-success">
+                <button class="delete"></button>
+                {{ mensaje }}
+            </div>         
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<form action="/update/{{ contact.id }}" method="POST">
+    <div class="field">
+        <label for="Fullname" class="label">FullName</label>
+        <div class="control">                
+            <input type="text" class="input" name = "fullname" placeholder="fullname" value="{{ contact.fullname }}">
+        </div>
+    </div>
+    <div class="field">
+        <label for="phone" class="label">Phone</label>
+        <div class="control">                
+            <input type="text" class="input" name = "phone" placeholder="phone" value="{{ contact.phone }}">
+        </div>     
+    </div>
+    <div class="field">
+        <label for="Email" class="label">Email</label>
+        <div class="control">                
+            <input type="email" class="input" name = "email" placeholder="email" value="{{ contact.email }}">
+        </div>
+    </div>
+    <div class="field">
+        <div class="control">
+            <button type="submit" class="button is-primary">Guardar</button>
+        </div>  
+    </div>        
+</form>  
+{% endblock %}
